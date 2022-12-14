@@ -51,6 +51,12 @@
     <ClCompile Include="image_channels.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="mixchannels.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="arithmetic_op.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bmpHeader.h">
