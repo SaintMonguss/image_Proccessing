@@ -81,6 +81,15 @@
     <ClCompile Include="contrast.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="calc_histogram.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="hue_histogram.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="histogram_equalize.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bmpHeader.h">
