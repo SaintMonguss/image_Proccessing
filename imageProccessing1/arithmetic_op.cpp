@@ -30,7 +30,7 @@ int main()
 	cout << "[m_add2] = " << endl << m_add2 << endl;
 	cout << "[m_div1] = " << endl << m_div1 << endl;
 	cout << "[m_div2] = " << endl << m_div2 << endl;
-
+	
 	return 0;
 
 }

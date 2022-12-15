@@ -112,5 +112,7 @@ void printPixcel_24(BITMAPFILEHEADER* bmpHeader, BITMAPINFOHEADER* bmpInfoHeader
 	printf("픽셀당 비트 수 : 24 bit\n");
 	printf("지원색상 : 트루컬러\n\n");
 	printf("픽셀 정보 :\n");
+	
+	for
 
 }
