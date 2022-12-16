@@ -40,7 +40,7 @@ Mat scramble(Mat signal)
 		}
 
 		int m = dst.cols >> 1;
-		while ((j > -m) && (m >= 2))
+		while ((j >= m) && (m >= 2))
 		{
 			j -= m;
 			m >>= 1;
