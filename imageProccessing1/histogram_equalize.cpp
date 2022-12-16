@@ -53,7 +53,7 @@ int main()
 	Mat hist, dst1, dst2, hist_img, hist_img1, hist_img2;
 	create_hist(image, hist, hist_img);
 
-	Mat accum_hist = Mat(hist.size(), hist.type(), Scalar(0));
+	Mat accum_hist =` Mat(hist.size(), hist.type(), Scalar(0));
 	accum_hist.at<float>(0) = hist.at<float>(0);
 	for (int i = 1; i < hist.rows; i++)
 	{
