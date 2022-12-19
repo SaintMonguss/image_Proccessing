@@ -22,13 +22,23 @@ vector<Point2f> findImageCorners(Mat image, Size boardSize)
 
 	if (found) {
 		cornerSubPix(gray, imgPoints, Size(11, 11), Size(-1, -1),
+			//TermCriteria() = (만족 조건, 최대 반복횟수, 정확도). 즉, 아래 코드는 최대 횟수(30회)만큼 반복하고, 정확도(0.1)보다 낮아진 후에 종료됨. 
+			// 여기서 0.1 정확도라는것은 반복중에 코너의 위치가 0.1 이하로 이동조정 될때를 뜻함.
 			TermCriteria(TermCriteria::MAX_ITER + TermCriteria::EPS, 30, 0.1));
+
 		/*
+		* 캘리브레이션이 좋냐 나쁘냐는 정밀도에 달림.
+		* 코너 위치를 얻어낸 그대로 쓰는것이 아니라 서브 픽셀수준의 정확도를 얻기 위해 다시 한번 전처리 공정을 거침
 		* 
-		* 
+		* 첫 인자는 입력 이미지
+		* 두번째 인자는 포인트의 입력 및 출력을 담당하는 vector 
+		* 3번째 인자와 4번째 인자 이해 불가...
 		* 
 		*/
 		drawChessboardCorners(image, boardSize, imgPoints, found);
+		/*
+		* 위의 전처리가 끝난 감지 포인트에 4번째 인자[found]가 참이라면, 색상선으로 연결된 모서리를 그려냄
+		*/
 		imshow("image_" + to_string(cnt), image);
 		waitKey();
 		destroyWindow("image_" + to_string(cnt++));
@@ -95,8 +105,22 @@ int main()
 
 	double rms = calibrateCamera(objectPoints, imagePoints, image.size(),
 		cameraMatrix, distCoeffs, rvecs, tvecs);
+	/*
+	* 
+	* 
+	* 
+	* 
+	*/
 
 	undistort(image, undistorted, cameraMatrix, distCoeffs);
+	/*
+	* 카메라 렌즈로 인한 왜곡 보정.
+	* 두번째 인자는 왜곡 보정이 끝난 영상을 출력함
+	* 세번째 인자는 위의 calibrateCamera에서 얻어진 cameraMatrix 즉, 카메라 내부 파라미터(또는 행렬) 값.
+	* 네번째 인자는 카메라 왜곡 계수의 입력백터
+	* 
+	* 수행후엔 렌즈 왜곡이 제거된 영상이 반환됨
+	*/
 
 	cout << "cameraMatrix " << endl << cameraMatrix << endl << endl;
 	printf("RMS error reported by calibrateCamera: %g\n", rms);
