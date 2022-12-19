@@ -135,6 +135,15 @@
     <ClCompile Include="correct_object.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="aharris_dectect.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="KNearest2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="warpping.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bmpHeader.h">
