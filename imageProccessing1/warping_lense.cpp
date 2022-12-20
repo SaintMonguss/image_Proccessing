@@ -21,7 +21,7 @@ vector<Point2f> findImageCorners(Mat image, Size boardSize)
 	*/
 
 	if (found) {
-		cornerSubPix(gray, imgPoints, Size(11, 11), Size(-1, -1),
+		cornerSubPix(gray, imgPoints, Size(5, 5), Size(-1, -1),
 			//TermCriteria() = (만족 조건, 최대 반복횟수, 정확도). 즉, 아래 코드는 최대 횟수(30회)만큼 반복하고, 정확도(0.1)보다 낮아진 후에 종료됨. 
 			// 여기서 0.1 정확도라는것은 반복중에 코너의 위치가 0.1 이하로 이동조정 될때를 뜻함.
 			TermCriteria(TermCriteria::MAX_ITER + TermCriteria::EPS, 30, 0.1));
@@ -32,8 +32,12 @@ vector<Point2f> findImageCorners(Mat image, Size boardSize)
 		* 
 		* 첫 인자는 입력 이미지
 		* 두번째 인자는 포인트의 입력 및 출력을 담당하는 vector 
-		* 3번째 인자와 4번째 인자 이해 불가...
-		* 
+		* 세번째 인자는 윈도우의 사이즈를 지정해 주는 매개변수
+		* 윈도우는 흰검 으로 이루어진 한점을 찾을 탐색 단위를 뜻함
+		*         검흰 
+		* 따라서 일반적으로는 체커보드의 정사각형 한칸의 모서리 길이를 입력하게 됨
+		* 내부 공식은 (인자 * 2 + 1) // +1은 센터의 자기 자신의 크기
+		* 4번째 인자는 중심점에서 얼마나 무시할것인지를 뜻함, (-1, -1)은 무시하지 않겠다는 뜻
 		*/
 		drawChessboardCorners(image, boardSize, imgPoints, found);
 		/*
@@ -64,7 +68,7 @@ vector<Point3f> calcObjectCorners(Size boardSize, float squareSize)
 int main()
 {
 	Size boardSize(8, 7), imageSize; // 8너비, 7높이 bord 선언, 검은색/흰색의 칸 수 X, 검흰검흰으로 이루어진 사각형의 센터값이 기준
-	float squareSize = 1.f;
+	float squareSize = 5.f;
 
 	vector<String> filelist;
 	filelist.push_back("chessboard_01.jpg");
