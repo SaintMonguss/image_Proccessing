@@ -20,7 +20,8 @@ vector<Point2f> findImageCorners(Mat image, Size boardSize)
 	*	반환값 bool타입 / 지정된 만큼 내부 모서리를 찾지 못하거나, 찾았어도 정렬하는데 실패하면 0반환
 	*/
 
-	if (found) {
+	if (found) 
+	{
 		cornerSubPix(gray, imgPoints, Size(5, 5), Size(-1, -1),
 			//TermCriteria() = (만족 조건, 최대 반복횟수, 정확도). 즉, 아래 코드는 최대 횟수(30회)만큼 반복하고, 정확도(0.1)보다 낮아진 후에 종료됨. 
 			// 여기서 0.1 정확도라는것은 반복중에 코너의 위치가 0.1 이하로 이동조정 될때를 뜻함.
@@ -51,6 +52,7 @@ vector<Point2f> findImageCorners(Mat image, Size boardSize)
 	return imgPoints;
 }
 
+//변형이 전혀 없다고 가정한 산술적인 비교군 좌표 생성
 vector<Point3f> calcObjectCorners(Size boardSize, float squareSize)
 {
 	vector<Point3f> corners;
@@ -71,9 +73,9 @@ int main()
 	float squareSize = 5.f;
 
 	vector<String> filelist;
-	filelist.push_back("chessboard_01.jpg");
-	filelist.push_back("chessboard_02.jpg");
-	filelist.push_back("chessboard_03.jpg");
+	filelist.push_back("../chessboard/chessboard_01.jpg");
+	filelist.push_back("../chessboard/chessboard_02.jpg");
+	filelist.push_back("../chessboard/chessboard_03.jpg");
 
 	vector<vector<Point2f>> imagePoints; // float형 x,y 좌표값을 가지는 포인트
 	vector<vector<Point3f>> objectPoints; // float형 x,y,z 좌표값을 가지는 포인트
@@ -104,21 +106,25 @@ int main()
 	Mat cameraMatrix, distCoeffs;
 	Mat undistorted;
 
-	Mat image = imread("../image/chessboard_05.jpg", 1);
+	Mat image = imread("../chessboard/chessboard_05.jpg", 1);
 	CV_Assert(image.data);
 
 	double rms = calibrateCamera(objectPoints, imagePoints, image.size(),
 		cameraMatrix, distCoeffs, rvecs, tvecs);
 	/*
+	* 보정 패턴의 여러 보기에서 카메라 고유 및 외부 매개변수를 찾는 것이 목표.
 	* 
-	* 
-	* 
+	* 첫번째 인자는 calcObjectCorners를 통해 얻어진 비교군 좌표들의 집합(체커보드를 바꾸지 않았다면 모두 동일)
+	* 두번째 인자는 샘플 이미지들의 집합
+	* 네번째 인자는 함수를 통해 얻어낸 카메라 내부 파라미터 값을 반환해줄 변수
+	* 다섯번째 인자는 왜곡 계수 행렬
 	* 
 	*/
 
 	undistort(image, undistorted, cameraMatrix, distCoeffs);
 	/*
-	* 카메라 렌즈로 인한 왜곡 보정.
+	* 카메라 렌즈로 인한 왜곡 보정을 위한 함수
+	*
 	* 두번째 인자는 왜곡 보정이 끝난 영상을 출력함
 	* 세번째 인자는 위의 calibrateCamera에서 얻어진 cameraMatrix 즉, 카메라 내부 파라미터(또는 행렬) 값.
 	* 네번째 인자는 카메라 왜곡 계수의 입력백터
@@ -127,8 +133,16 @@ int main()
 	*/
 
 	cout << "cameraMatrix " << endl << cameraMatrix << endl << endl;
-	printf("RMS error reported by calibrateCamera: %g\n", rms);
+	cout << "왜곡계수 " << endl << distCoeffs << endl << endl;
 
+	printf("RMS error reported by calibrateCamera: %g\n", rms);
+	/*
+	* 함수 실행 에러에 대한 메세지x
+	* RMS 에러는 RPE 라고도 함. Re Projection Err의 약자.
+	* 즉 재투영 시의 편차를 뜻함. 0 에 가까울수록 좋음
+	* 산술 평균적으로 켈리브레이션을 통해 발견한 파라미터 값의 편차를 계산해서 얄려줌
+	* 켈리브레이션 카메라의 리턴값이 이 RPE임
+	*/
 	imshow("Original", image);
 	imshow("Undistorted", undistorted);
 	waitKey();
