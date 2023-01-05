@@ -10,10 +10,10 @@
 
 typedef unsigned char ubyte;
 ubyte* inimg;
+RGBQUAD* palrgb;
 
 void printPixcelBin(BITMAPFILEHEADER*, BITMAPINFOHEADER*);
 void printPixcel_2_4_8(BITMAPFILEHEADER*, BITMAPINFOHEADER*);
-void printPixcel_16(BITMAPFILEHEADER*, BITMAPINFOHEADER*);
 void printPixcel_24(BITMAPFILEHEADER*, BITMAPINFOHEADER*);
 
 int main(int argc, char** argv)
@@ -21,7 +21,6 @@ int main(int argc, char** argv)
 	FILE* fp;
 	BITMAPFILEHEADER bmpHeader;
 	BITMAPINFOHEADER bmpInfoHeader;
-	RGBQUAD* palrgb;
 	
 
 	int sizeOfColumn, imgSize;
@@ -52,6 +51,15 @@ int main(int argc, char** argv)
 	{
 		fprintf(stderr, "에러 : 이미지 파일을 받아올 메모리 할당에 실패 했습니다...\n");
 		return 0;
+	}  
+
+	if (bmpInfoHeader.biBitCount == 8 && bmpInfoHeader.biClrImportant == 0)
+		bmpInfoHeader.biClrImportant = 256;
+
+	if ((palrgb = (RGBQUAD*)malloc(sizeof(RGBQUAD) * bmpInfoHeader.bmpInfoHeader.biClrImportant)) == NULL)
+	{
+		fprintf(stderr, "에러 : 팔레트를 받아올 메모리 할당에 실패했습니다...\n");
+		return 0;
 	}
 
 	//오프셋 위치로 지정
@@ -59,25 +67,22 @@ int main(int argc, char** argv)
 	
 	fread(inimg, sizeof(ubyte), bmpInfoHeader.SizeImage, fp);
 
+	fread(inimg, sizeof(ubyte), bmpInfoHeader.SizeImage, fp);
+
 	fclose(fp);
 	
 	switch (bmpInfoHeader.biBitCount)
 	{
-		case 1 :
-			printPixcelBin(&bmpHeader, &bmpInfoHeader);
-			break;
-		
-		case 16 :
-			printPixcel_16(&bmpHeader, &bmpInfoHeader);
-			break;
-		case 24 :
-			printPixcel_24(&bmpHeader, &bmpInfoHeader);
-			break;
-		default :
-			printPixcel_2_4_8(&bmpHeader, &bmpInfoHeader);
-			break;
+	case 1:
+		printPixcelBin(&bmpHeader, &bmpInfoHeader);
+		break;
+	case 24:
+		printPixcel_24(&bmpHeader, &bmpInfoHeader);
+		break;
+	default:
+		printPixcel_2_4_8(&bmpHeader, &bmpInfoHeader);
+		break;
 	}
-
 	return 0;
 }
 
@@ -99,20 +104,26 @@ void printPixcelBin(BITMAPFILEHEADER *bmpHeader, BITMAPINFOHEADER *bmpInfoHeader
 
 void printPixcel_2_4_8(BITMAPFILEHEADER* bmpHeader, BITMAPINFOHEADER* bmpInfoHeader)
 {
+	printf("픽셀당 비트 수 : %d bit\n", bmpInfoHeader->biBitCount);
+	printf("지원색상 : 팔레트 컬러 \n\n");
+	printf("픽셀 정보 :\n");
 
 }
-void printPixcel_16(BITMAPFILEHEADER* bmpHeader, BITMAPINFOHEADER* bmpInfoHeader)
-{
-	printf("픽셀당 비트 수 : 16 bit\n");
-	printf("지원색상 : 하이컬러\n\n");
-	printf("픽셀 정보 :\n");
-}
+
 void printPixcel_24(BITMAPFILEHEADER* bmpHeader, BITMAPINFOHEADER* bmpInfoHeader)
 {
 	printf("픽셀당 비트 수 : 24 bit\n");
 	printf("지원색상 : 트루컬러\n\n");
 	printf("픽셀 정보 :\n");
 	
-	for
-
+	int bgr[3];
+	for (int i = 0; i < bmpInfoHeader->SizeImage; i += 3)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			bgr[j] = inimg[i + j]
+		}
+		printf("(%d, %d , %d) ", bgr[0], bgr[1], bgr[2]);
+		return 0;
+	}
 }
