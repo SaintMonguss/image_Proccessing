@@ -1,0 +1,13 @@
+﻿  readBMP.c
+C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\bmpHeader.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(39,12): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(31,20): warning C4101: 'imgSize' :참조되지 않은 지역 변수입니다.
+C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(31,6): warning C4101: 'sizeOfColumn' :참조되지 않은 지역 변수입니다.
+C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(100,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(120,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(131,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(143,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(151,10): warning C4098: 'printPixcel_2_4_8': 'void' 함수에서 값을 반환하고 있습니다.
+C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(161,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(168,11): warning C4098: 'printPixcel_24': 'void' 함수에서 값을 반환하고 있습니다.
+  homework.vcxproj -> C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\Debug\homework.exe

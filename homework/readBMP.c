@@ -1,8 +1,13 @@
+/**************************************************************
+* BMP 헤더만 이용해서 BMP 파일을 읽고
+* 픽셀 값을 출력하는 프로그램을 작성하시오
+* *************************************************************/
+
+
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <string.h>
-#include <limits.h>                     /* USHRT_MAX 상수를 위해서 사용한다. */
-
+#include <limits.h>                     // USHRT_MAX 상수를 위해서 사용한다. 
 
 #include "bmpHeader.h"
 
@@ -36,16 +41,11 @@ int main(int argc, char** argv)
 		fprintf(stderr, "에러 : 파일을 여는데에 실패했습니다...\n");
 		return -1;
 	}
-
+	
 	//bmp 파일의 헤더 정보 읽어오기
 	fread(&bmpHeader, sizeof(BITMAPFILEHEADER), 1, fp);
 	fread(&bmpInfoHeader, sizeof(BITMAPINFOHEADER), 1, fp);
 
-	/*
-	sizeOfColumn = widthbytes(bmpInfoHeader.biBitCount * bmpInfoHeader.biWidth);
-	imgSize = sizeOfColumn * bmpInfoHeader.biHeight;
-	*/
-	
 	
 	if ((inimg =(ubyte*)malloc(sizeof(ubyte) * bmpInfoHeader.SizeImage)) == NULL)
 	{
@@ -56,21 +56,26 @@ int main(int argc, char** argv)
 	if (bmpInfoHeader.biBitCount == 8 && bmpInfoHeader.biClrImportant == 0)
 		bmpInfoHeader.biClrImportant = 256;
 
-	if ((palrgb = (RGBQUAD*)malloc(sizeof(RGBQUAD) * bmpInfoHeader.bmpInfoHeader.biClrImportant)) == NULL)
+	if ((palrgb = (RGBQUAD*)malloc(sizeof(RGBQUAD) * bmpInfoHeader.biClrImportant)) == NULL)
 	{
 		fprintf(stderr, "에러 : 팔레트를 받아올 메모리 할당에 실패했습니다...\n");
 		return 0;
 	}
-
+	// 2,4,8비트 형태의 bmp 파일의 팔레트 받아오기
+	if (bmpInfoHeader.biBitCount == 2 || bmpInfoHeader.biBitCount == 4 || bmpInfoHeader.biBitCount == 8)
+	{
+		fseek(fp, 54, SEEK_SET);
+		fread(palrgb, sizeof(RGBQUAD), bmpInfoHeader.biClrImportant, fp);
+	}
 	//오프셋 위치로 지정
 	fseek(fp, bmpHeader.bfOffBits, SEEK_SET);
 	
 	fread(inimg, sizeof(ubyte), bmpInfoHeader.SizeImage, fp);
 
-	fread(inimg, sizeof(ubyte), bmpInfoHeader.SizeImage, fp);
-
 	fclose(fp);
 	
+	
+
 	switch (bmpInfoHeader.biBitCount)
 	{
 	case 1:
@@ -108,6 +113,41 @@ void printPixcel_2_4_8(BITMAPFILEHEADER* bmpHeader, BITMAPINFOHEADER* bmpInfoHea
 	printf("지원색상 : 팔레트 컬러 \n\n");
 	printf("픽셀 정보 :\n");
 
+	switch (bmpInfoHeader->biBitCount)
+	{
+	case 2:
+		for (int i = 0; i < bmpInfoHeader->SizeImage; i++)
+		{
+			for (int j = 6; j > 0; j -= 2)
+			{
+				int n = 0;
+				n = (inimg[i] >> j) & 0b11;
+				printf("(%d, %d , %d) ", palrgb[n].rgbBlue, palrgb[n].rgbGreen, palrgb[n].rgbRed);
+			}
+		}
+		break;
+	case 4:
+		for (int i = 0; i < bmpInfoHeader->SizeImage; i++)
+		{
+			for (int j = 4; j > 0; j -= 4)
+			{
+				int n = 0;
+				n = (inimg[i] >> j) & 0b1111;
+				printf("(%d, %d , %d) ", palrgb[n].rgbBlue, palrgb[n].rgbGreen, palrgb[n].rgbRed);
+			}
+		}
+		
+		break;
+	case 8:
+		for (int i = 0; i < bmpInfoHeader->SizeImage; i++)
+		{
+			int n = inimg[i];
+			printf("(%d, %d , %d) ", palrgb[n].rgbBlue, palrgb[n].rgbGreen, palrgb[n].rgbRed);
+
+		}
+		break;
+	}
+	return 0;
 }
 
 void printPixcel_24(BITMAPFILEHEADER* bmpHeader, BITMAPINFOHEADER* bmpInfoHeader)
@@ -121,9 +161,10 @@ void printPixcel_24(BITMAPFILEHEADER* bmpHeader, BITMAPINFOHEADER* bmpInfoHeader
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			bgr[j] = inimg[i + j]
+			bgr[j] = inimg[i + j];
 		}
 		printf("(%d, %d , %d) ", bgr[0], bgr[1], bgr[2]);
-		return 0;
+		
 	}
+	return 0;
 }
