@@ -1,1 +1,2 @@
 C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\x64\Debug\homework.exe
+F:\Ostem\image_Proccessing\image_Proccessing\homework\x64\Debug\homework.exe

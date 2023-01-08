@@ -18,6 +18,12 @@
     <ClCompile Include="readBMP.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="copyBmpAddPalatt.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="copyBmpUsePointer.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bmpHeader.h">

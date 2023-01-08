@@ -27,9 +27,6 @@ int main(int argc, char** argv)
 	BITMAPFILEHEADER bmpHeader;
 	BITMAPINFOHEADER bmpInfoHeader;
 	
-
-	int sizeOfColumn, imgSize;
-	
 	if (argc != 2)
 	{
 		fprintf(stderr, "실행 형태 : %s input.bmp\n", argv[0]);
@@ -53,10 +50,10 @@ int main(int argc, char** argv)
 		return 0;
 	}  
 
-	if (bmpInfoHeader.biBitCount == 8 && bmpInfoHeader.biClrImportant == 0)
-		bmpInfoHeader.biClrImportant = 256;
+	if (bmpInfoHeader.biBitCount == 8 && bmpInfoHeader.biClrUsed == 0)
+		bmpInfoHeader.biClrUsed = 256;
 
-	if ((palrgb = (RGBQUAD*)malloc(sizeof(RGBQUAD) * bmpInfoHeader.biClrImportant)) == NULL)
+	if ((palrgb = (RGBQUAD*)malloc(sizeof(RGBQUAD) * bmpInfoHeader.biClrUsed)) == NULL)
 	{
 		fprintf(stderr, "에러 : 팔레트를 받아올 메모리 할당에 실패했습니다...\n");
 		return 0;
@@ -65,7 +62,7 @@ int main(int argc, char** argv)
 	if (bmpInfoHeader.biBitCount == 2 || bmpInfoHeader.biBitCount == 4 || bmpInfoHeader.biBitCount == 8)
 	{
 		fseek(fp, 54, SEEK_SET);
-		fread(palrgb, sizeof(RGBQUAD), bmpInfoHeader.biClrImportant, fp);
+		fread(palrgb, sizeof(RGBQUAD), bmpInfoHeader.biClrUsed, fp);
 	}
 	//오프셋 위치로 지정
 	fseek(fp, bmpHeader.bfOffBits, SEEK_SET);
@@ -147,7 +144,7 @@ void printPixcel_2_4_8(BITMAPFILEHEADER* bmpHeader, BITMAPINFOHEADER* bmpInfoHea
 		}
 		break;
 	}
-	return 0;
+	return;
 }
 
 void printPixcel_24(BITMAPFILEHEADER* bmpHeader, BITMAPINFOHEADER* bmpInfoHeader)
@@ -166,5 +163,5 @@ void printPixcel_24(BITMAPFILEHEADER* bmpHeader, BITMAPINFOHEADER* bmpInfoHeader
 		printf("(%d, %d , %d) ", bgr[0], bgr[1], bgr[2]);
 		
 	}
-	return 0;
+	return;
 }

@@ -1,14 +1,10 @@
-﻿  readBMP.c
-C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\bmpHeader.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(12,1): warning C4103: 헤더를 포함한 후 맞춤 방식이 변경된 것은 #pragma pack(pop)이 없기 때문일 수 있습니다.
-C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(39,12): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(31,20): warning C4101: 'imgSize' :참조되지 않은 지역 변수입니다.
-C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(31,6): warning C4101: 'sizeOfColumn' :참조되지 않은 지역 변수입니다.
-C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(99,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(119,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(130,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(142,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(150,10): warning C4098: 'printPixcel_2_4_8': 'void' 함수에서 값을 반환하고 있습니다.
-C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(160,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\readBMP.c(169,10): warning C4098: 'printPixcel_24': 'void' 함수에서 값을 반환하고 있습니다.
-  homework.vcxproj -> C:\Users\KOSA\Desktop\ostem\imageProccessing\homework\x64\Debug\homework.exe
+﻿  copyBmpUsePointer.c
+F:\Ostem\image_Proccessing\image_Proccessing\homework\bmpHeader.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+F:\Ostem\image_Proccessing\image_Proccessing\homework\copyBmpUsePointer.c(11,1): warning C4103: 헤더를 포함한 후 맞춤 방식이 변경된 것은 #pragma pack(pop)이 없기 때문일 수 있습니다.
+F:\Ostem\image_Proccessing\image_Proccessing\homework\copyBmpUsePointer.c(77,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+F:\Ostem\image_Proccessing\image_Proccessing\homework\copyBmpUsePointer.c(35,12): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Ostem\image_Proccessing\image_Proccessing\homework\copyBmpUsePointer.c(41,12): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Ostem\image_Proccessing\image_Proccessing\homework\copyBmpUsePointer.c(27,20): warning C4101: 'imgSize' :참조되지 않은 지역 변수입니다.
+F:\Ostem\image_Proccessing\image_Proccessing\homework\copyBmpUsePointer.c(23,10): warning C4101: 'palrgb' :참조되지 않은 지역 변수입니다.
+F:\Ostem\image_Proccessing\image_Proccessing\homework\copyBmpUsePointer.c(27,6): warning C4101: 'sizeOfColumn' :참조되지 않은 지역 변수입니다.
+  homework.vcxproj -> F:\Ostem\image_Proccessing\image_Proccessing\homework\x64\Debug\homework.exe
